@@ -1,5 +1,6 @@
 package es.jcyl.eclap.colapp.controladores;
 
+import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -36,12 +37,12 @@ public class LoginControlador {
 	@RequestMapping( method = RequestMethod.POST )
     public String validarLogin (HttpServletRequest request, HttpServletResponse response, 
     		                    @RequestBody String postPayload,
-    		                    @RequestParam("login") String login , @RequestParam("password") String password) {
+    		                    @RequestParam("login") String login , @RequestParam("password") String password) throws IOException {
 		
 		logger.info( "Inicio de Login:" + postPayload );
-		
-		
+			
 		Usuario usuario = LoginOad.validarUsuario( login , password);
+		
         if (usuario != null ){
 			
         	logger.info( "Logeado" );
@@ -49,17 +50,18 @@ public class LoginControlador {
         	crearSesion ( request, usuario);
         	crearCookies (response, usuario);
         	
+        	response.sendRedirect ("principal");
 		}
 		else {
 			logger.info( "NO logeado");
+			
+			response.sendRedirect("login?mensaje=Error%20en%20usuario%20o%20contrase%C3%B1a");
 		}
 		
-
-		
-		
-        
         return "login";
     }
+	
+	
 	
 	
 	
@@ -74,7 +76,7 @@ public class LoginControlador {
 	
 	private void crearCookies (HttpServletResponse response, Usuario usuario) {
 		
-		Cookie galleta =new Cookie ("mi_galleta","usuario");
+		Cookie galleta =new Cookie ("privilegios","usuario");
         response.addCookie(galleta);
 
         response.addCookie( new Cookie ( "login", usuario.getLogin()) );

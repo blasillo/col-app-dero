@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html lang="es">
 <head>
 <title>Col-App-Dero</title>
@@ -77,35 +77,33 @@
 
 
 <body>
+
+
 <jsp:include page="comun/cabecera.jsp"></jsp:include>
 
- <div class='container' style='min-height: 450px'><div class='row'><div class='col-md-12'>
-    <div class="login-page">
-      <div class="form">
-       
-       <form class="login-form" action="login" method="post">
-          <h2>Inicio de sesi&oacute;n</h2>
-	      <input type="text" name="login" placeholder="Usuario"/>
-	      <input type="password" name="password" placeholder="contraseña"/>
-	      
-	      <br> <!--  mensaje -->
-	      <b><%= request.getParameter("mensaje") == null ? "" :  request.getParameter("mensaje") %></b>
-	      <br>
-	      <br>
-	      
-	      
-	      <button>Iniciar sesi&oacute;n</button>
-	    </form>
-         
-    </div>
- </div>
+<%
+  if(session.getAttribute("tieneSesion")!=null) { 
+%>
+
+
+<h2>Col-app-dero: principal</h2>
+
+<!-- menu -->
 
 
 
-<jsp:include page="comun/pie.jsp"></jsp:include>
+ 
+ 
+  <jsp:include page="comun/pie.jsp"></jsp:include>
+  
+<%
+} // 
+else {
+    out.print("Sin sesiÃ³n!");
+    
+}
+
+%>
+
 </body>
 </html>
-
-
-
-

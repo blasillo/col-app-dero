@@ -3,6 +3,7 @@ package es.jcyl.eclap.colapp;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 @SpringBootApplication
 public class ColAppApplication {
 

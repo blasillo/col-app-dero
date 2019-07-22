@@ -22,10 +22,23 @@
         <a class="nav-link" href="lecciones"><i class="fa fa-book"></i> Aprendizaje</a>
       </li>
       
-      <li class="nav-item">
+
+<%
+  if( session.getAttribute("tieneSesion") != null ) { 
+%>
+       <li class="nav-item">
+        <a class="nav-link" href="logout"><i class="fas fa-sign-out-alt" aria-hidden="true"></i> Cerrar sesi&oacute;n</a>
+      </li>     
+<%
+  } 
+  else {
+%>
+       <li class="nav-item">
         <a class="nav-link" href="login"><i class="fa fa-user-circle" aria-hidden="true"></i> Inicio de sesi&oacute;n</a>
       </li>
-         
+<%
+  }
+%>       
             
      </ul>
     </div>
