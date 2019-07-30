@@ -2,14 +2,23 @@ package es.jcyl.eclap.colapp.ot;
 
 public class Usuario {
 	
-	private Integer id;
-	
-	private String login;
-	
-	private String password;
-	
+	private Integer id;	
+	private String email;	
+	private String password;	
 	private String nombre;
 	
+	public Usuario() {
+		super();
+	}
+
+	public Usuario(Integer id, String email, String password, String nombre) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.nombre = nombre;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -18,14 +27,12 @@ public class Usuario {
 		this.id = id;
 	}
 
-	
-
-	public String getLogin() {
-		return login;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -46,8 +53,15 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", login=" + login + ", password=" + password + ", nombre=" + nombre + "]";
+		return "Usuario [id=" + id + ", email=" + email + ", password=" + password + ", nombre=" + nombre + "]";
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 

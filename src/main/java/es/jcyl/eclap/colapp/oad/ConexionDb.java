@@ -1,10 +1,19 @@
 package es.jcyl.eclap.colapp.oad;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class ConexionDb {
 	
-	static final String JDBC_DRIVER = "org.h2.Driver";   
-	static final String DB_URL = "jdbc:h2:mem:testdb";
-	static final String USER = "sa"; 
-	static final String PASS = ""; 
+	static String JDBC_DRIVER ="org.mariadb.jdbc.Driver";
+	
+	public static Connection obtenerConexionDb() throws SQLException, ClassNotFoundException {
+		
+		Class.forName(JDBC_DRIVER);
+		
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/colapp?allowMultiQueries=true","colapp","secreto");  
+		return conn;
+	}
 
 }

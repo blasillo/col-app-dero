@@ -19,7 +19,7 @@ public class LoginOad {
 	
 	
 	
-	public static Usuario validarUsuario ( String login, String password ) {
+	public static Usuario validarUsuario ( String login, String password ) throws SQLException {
 		
 		
 		Connection conn = null; 
@@ -30,11 +30,15 @@ public class LoginOad {
 			Usuario usuario = null;
 			
 			logger.info ("Conectando a base de datos ...");
-			Class.forName(ConexionDb.JDBC_DRIVER);
-			conn = DriverManager.getConnection(ConexionDb.DB_URL,ConexionDb.USER,ConexionDb.PASS);
 			
 			
-			String sql = "SELECT * FROM USUARIOS WHERE LOGIN = '" + login + "' AND PASSWORD ='" + password + "'";
+			
+			//conn = DriverManager.getConnection(ConexionDb.DB_URL,ConexionDb.USER,ConexionDb.PASS);
+			
+			conn = ConexionDb.obtenerConexionDb();
+			
+			
+			String sql = "SELECT * FROM USUARIOS WHERE EMAIL = '" + login + "' AND PASSWORD ='" + password + "'";
 			logger.info ("Ejecudando consulta: " + sql );
 			
 			 stmt = conn.createStatement(); 			 
@@ -47,7 +51,7 @@ public class LoginOad {
 				 
 				 usuario = new Usuario ();
 				 usuario.setId( rs.getInt("ID"));
-				 usuario.setLogin( rs.getString("LOGIN"));
+				 usuario.setEmail( rs.getString("EMAIL"));
 				 usuario.setPassword(rs.getString("PASSWORD"));
 				 usuario.setNombre(rs.getString("NOMBRE"));
 				 
@@ -66,7 +70,9 @@ public class LoginOad {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		finally {
+			conn.close();
+		}
 		return null;
 	}
 

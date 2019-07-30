@@ -1,0 +1,109 @@
+@charset "ISO-8859-1";
+
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+      position: relative; /* For scrollyspy */
+      padding-top: 0px; /* Account for fixed navbar */
+    }
+    
+body::after {
+  content: '';
+  display: block;
+  height: 60px; /*  */
+}
+    
+
+#contenedor-principal {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}    
+    
+.login-page {
+		  width: 360px;
+		  padding: 8% 0 0;
+		  margin: auto;
+		}
+		
+.form {
+	  position: relative;
+	  z-index: 1;
+	  background: #FFFFFF;
+	  max-width: 360px;
+	  margin: 0 auto 100px;
+	  padding: 45px;
+	  text-align: center;
+	  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+	}
+	
+
+.form button {
+	  font-family: "Roboto", sans-serif;
+	  text-transform: uppercase;
+	  outline: 0;
+	  background: dodgerblue;
+	  width: 100%;
+	  border: 0;
+	  padding: 15px;
+	  color: #FFFFFF;
+	  font-size: 14px;
+	  -webkit-transition: all 0.3 ease;
+	  transition: all 0.3 ease;
+	  cursor: pointer;
+	  opacity: 0.9;
+	}
+.form button:hover,.form button:active,.form button:focus {
+	  background: dodgerblue;
+	  opacity: 1.0;
+	}
+	
+	
+.input-container {
+  display: flex;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 5px;
+}
+
+.input-field {
+	outline: 0;
+	 
+	  width: 100%;
+	  border: 0;
+	  margin: 0 0 15px;
+	  padding: 15px;
+	  box-sizing: border-box;
+	  font-size: 14px;
+  width: 100%;
+  padding: 5px;
+  
+  height: 40px;
+  background: #f2f2f2;
+}
+
+.input-field:focus {
+  border: 1px solid dodgerblue;
+}
+
+.icon {
+  padding: 10px;
+  background: dodgerblue;
+  color: white;
+  min-width: 50px;
+  text-align: center;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #607D8B !important;
+  color: #CFD8DC !important;
+}

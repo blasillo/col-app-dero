@@ -1,6 +1,7 @@
 package es.jcyl.eclap.colapp.controladores;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -41,22 +42,32 @@ public class LoginControlador {
 		
 		logger.info( "Inicio de Login:" + postPayload );
 			
-		Usuario usuario = LoginOad.validarUsuario( login , password);
+		Usuario usuario;
+		try {
+			 usuario = LoginOad.validarUsuario( login , password);
+			
+			 if (usuario != null ){
+					
+		        	logger.info( "Logeado" );
+		        	
+		        	crearSesion ( request, usuario);
+		        	crearCookies (response, usuario);
+		        	
+		        	response.sendRedirect ("principal");
+				}
+				else {
+					logger.info( "NO logeado");
+					
+					response.sendRedirect("login?mensaje=Error%20en%20usuario%20o%20contrase%C3%B1a");
+				}
+			 
+		}
+		catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
 		
-        if (usuario != null ){
-			
-        	logger.info( "Logeado" );
-        	
-        	crearSesion ( request, usuario);
-        	crearCookies (response, usuario);
-        	
-        	response.sendRedirect ("principal");
-		}
-		else {
-			logger.info( "NO logeado");
-			
-			response.sendRedirect("login?mensaje=Error%20en%20usuario%20o%20contrase%C3%B1a");
-		}
+       
 		
         return "login";
     }
@@ -79,8 +90,8 @@ public class LoginControlador {
 		Cookie galleta =new Cookie ("privilegios","usuario");
         response.addCookie(galleta);
 
-        response.addCookie( new Cookie ( "login", usuario.getLogin()) );
-        response.addCookie( new Cookie ( "password", usuario.getPassword()) );
+        response.addCookie( new Cookie ( "login", usuario.getEmail() ));
+        response.addCookie( new Cookie ( "password", usuario.getPassword() ));
 	}
 
 }
