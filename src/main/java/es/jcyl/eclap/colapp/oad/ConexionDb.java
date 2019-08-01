@@ -8,10 +8,8 @@ public class ConexionDb {
 	
 	static String JDBC_DRIVER ="org.mariadb.jdbc.Driver";
 	
-	public static Connection obtenerConexionDb() throws SQLException, ClassNotFoundException {
-		
-		Class.forName(JDBC_DRIVER);
-		
+	public static Connection obtenerConexionDb() throws SQLException, ClassNotFoundException {		
+		Class.forName(JDBC_DRIVER);		
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/colapp?allowMultiQueries=true","colapp","secreto");  
 		return conn;
 	}

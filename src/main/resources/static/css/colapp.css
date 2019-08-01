@@ -7,8 +7,8 @@ html {
 }
 
 body {
-      position: relative; /* For scrollyspy */
-      padding-top: 0px; /* Account for fixed navbar */
+      position: relative; /* x scrollyspy */
+      padding-top: 0px; /* x navbar */
     }
     
 body::after {
@@ -70,14 +70,13 @@ body::after {
 }
 
 .input-field {
-	outline: 0;
-	 
-	  width: 100%;
-	  border: 0;
-	  margin: 0 0 15px;
-	  padding: 15px;
-	  box-sizing: border-box;
-	  font-size: 14px;
+  outline: 0; 
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
   width: 100%;
   padding: 5px;
   
@@ -106,4 +105,47 @@ body::after {
   line-height: 60px; /* Vertically center the text there */
   background-color: #607D8B !important;
   color: #CFD8DC !important;
+}
+
+.btn-text-l {
+	font-size: 150% !important;
+}
+
+.btn-primary {
+	background-color: dodgerblue !important;
+	border-color: dodgerblue !important;
+	color: #fcfcfc !important;
+	opacity: 0.9;
+	
+}
+
+.btn-primary:hover {
+	color: #fefefe !important;
+	opacity: 1.0;
+}
+
+.btn-outline-primary {
+	color: dodgerblue !important;
+	border-color: dodgerblue !important;
+	opacity: 0.9;
+}
+
+.btn-outline-primary:hover {
+	background-color: dodgerblue !important;
+	color: #FFFFFF !important;
+	border-color: dodgerblue !important;
+}
+
+.img-blur {
+	box-shadow: 0 0 25px #000000;
+	border-radius: 4px;
+}
+
+.tarjeta img { 
+	height: 250px !important;
+	width: 12rem;
+}
+
+.nota img {
+	height: 125px !important
 }
