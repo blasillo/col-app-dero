@@ -4,74 +4,104 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import es.jcyl.eclap.colapp.oad.LoginOad;
 import es.jcyl.eclap.colapp.ot.Usuario;
 
 
 @Controller
-@RequestMapping("/login")
-public class LoginControlador {
+public class LoginControlador extends BaseControlador {
 	
-	Logger logger = LogManager.getLogger(LoginControlador.class);
+	//Logger logger = LogManager.getLogger(LoginControlador.class);
 	
 	
-	@RequestMapping( method = RequestMethod.GET)
-    public String login (Map<String, Object> modelo) {
-        
-        return "login";
+	@RequestMapping(value="/login", method = RequestMethod.GET)
+    public ModelAndView getLogin (Map<String, Object> modelo) {   
+		
+		try {
+			logger.info("GET /login");
+	        return new ModelAndView("login");
+		}
+		catch(Exception e) {
+			logger.error("Error no esperado. Deteniendo la operacion.", e);
+			return gestionarError("Error no esperado.", e);
+		}
+		
     }
 	
 	
-	@RequestMapping( method = RequestMethod.POST )
-    public String validarLogin (HttpServletRequest request, HttpServletResponse response, 
-    		                    @RequestBody String postPayload,
-    		                    @RequestParam("login") String login , @RequestParam("password") String password) throws IOException {
+	@RequestMapping(value="/login", method = RequestMethod.POST )
+    public ModelAndView postLogin (HttpServletRequest request, 
+    		                    HttpServletResponse response, 
+    		                    @RequestParam("login") String login , 
+    		                    @RequestParam("password") String password) throws IOException {
 		
-		logger.info( "Inicio de Login:" + postPayload );
-			
-		Usuario usuario;
+		logger.info( "Inicio de Autenticacion");
+		
+		
+		//Session session = ((Session)request.getAttribute("session"));
+		
+		
+		Usuario usuario;		
+	
 		try {
 			 usuario = LoginOad.validarUsuario( login , password);
+			 
+			 
 			
 			 if (usuario != null ){
 					
-		        	logger.info( "Logeado" );
+		        	logger.info( "Iniciada sesion del usuario: " + login );
 		        	
 		        	crearSesion ( request, usuario);
 		        	crearCookies (response, usuario);
-		        	
-		        	response.sendRedirect ("principal");
+		        			        	
+		        	return new ModelAndView("redirect:principal");
 				}
 				else {
-					logger.info( "NO logeado");
+					logger.warn("Autenticación fallida");
+					ModelAndView modelo = new ModelAndView("login");
+					modelo.addObject("login", login);
+					modelo.addObject("password", password);
+					modelo.addObject("mensaje", "Nombre de usuario o contraseña incorrectos");
 					
-					response.sendRedirect("login?mensaje=Error%20en%20usuario%20o%20contrase%C3%B1a");
+					return modelo;
 				}
 			 
 		}
 		catch (SQLException e) {
-			
-			e.printStackTrace();
+			logger.error("Error en la base de datos", e);
+			return gestionarError ("Error en la base de datos.", e);
 		}
-		
-       
-		
-        return "login";
+		catch (Exception e) {
+			logger.error("Error desconocido en servidor", e);
+			return gestionarError ("Error desconocido en servidor.", e);
+		}
+
     }
 	
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public ModelAndView getLogout(HttpServletRequest request) {
+		logger.info("GET /Logout");
+		
+		destruirSesion (request );
+		
+		
+		 return new ModelAndView("redirect:inicio");
+	}
 	
 	
 	
@@ -81,6 +111,14 @@ public class LoginControlador {
         session.setAttribute("tieneSesion", "1");
         session.setAttribute("usuario_id", usuario.getId() );
         session.setAttribute("nombre_usuario", usuario.getNombre() );
+        
+	}
+	
+	private void destruirSesion (HttpServletRequest request) {
+		HttpSession session=request.getSession();	
+        session.setAttribute("tieneSesion", null );
+        session.setAttribute("usuario_id", null );
+        session.setAttribute("nombre_usuario", null );
         
 	}
 	

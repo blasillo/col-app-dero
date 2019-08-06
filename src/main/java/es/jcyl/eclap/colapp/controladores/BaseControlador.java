@@ -8,15 +8,15 @@ public abstract class BaseControlador {
 	
 	Logger logger = LogManager.getLogger(BaseControlador.class);
 	
-	public ModelAndView handleError(String message, Exception e) {
-		ModelAndView model = handleError(message);
+	public ModelAndView gestionarError(String mensaje, Exception e) {
+		ModelAndView model = gestionarError (mensaje);
 		model.addObject("exception", e);
 		return model;
 	}
 	
-	public ModelAndView handleError(String message) {
+	public ModelAndView gestionarError(String mensaje) {
 		ModelAndView model = new ModelAndView("error");
-		model.addObject("message", message);
+		model.addObject("mensaje", mensaje);
 		return model;
 	}
 

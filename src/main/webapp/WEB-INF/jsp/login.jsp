@@ -44,12 +44,14 @@
 		        <input class="input-field" type="password" name="password" placeholder="contraseña"/>
 		      </div>
 		      
-		      <br> <!--  mensaje -->
-		      <b><%= request.getParameter("mensaje") == null ? "" :  request.getParameter("mensaje") %></b>
-		      <br>
-		      <br>
-		      
-		      
+		      <c:if test="${mensaje.length() > 0}">
+					<div class="row justify-content-center mt-4">
+						<div class="alert alert-danger">
+							<p class="m-0">${mensaje}</p>
+						</div>
+					</div>
+			  </c:if>
+		     
 		      
 		      <button>Iniciar sesi&oacute;n</button>
 		      

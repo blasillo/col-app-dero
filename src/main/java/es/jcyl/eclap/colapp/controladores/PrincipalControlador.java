@@ -47,7 +47,7 @@ public class PrincipalControlador extends BaseControlador {
 		
 		catch(Exception e) {
 			logger.error("Unexpected error occurred. Aborting the operation", e);
-			return handleError("Unexpected error occurred.", e);
+			return gestionarError("Error no esperado.", e);
 		}
 	}
 
