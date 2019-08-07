@@ -25,29 +25,26 @@
 
 <jsp:include page="comun/cabecera.jsp"></jsp:include>
 
-<%
-  if(session.getAttribute("tieneSesion")!=null) { 
-%>
 
+<c:choose>
+	<c:when test="${requestScope.session.estaAutenticado()}">
+				
 
-<h2>Col-app-dero: principal</h2>
+  <h2>Col-app-dero: principal</h2>
 
 <!-- menu -->
 
-
-
- 
- 
-  <jsp:include page="comun/pie.jsp"></jsp:include>
   
-<%
-} // 
-else {
-    out.print("Sin sesión!");
-    
-}
+  
+</c:when>    
+<c:otherwise>
+   <p>Es necesario iniciar sesión. </p> <a class="nav-item btn btn-primary" href="login">Login</a>
+</c:otherwise>
+</c:choose>
 
-%>
+
+<jsp:include page="comun/pie.jsp"></jsp:include>
+
 
 </body>
 </html>

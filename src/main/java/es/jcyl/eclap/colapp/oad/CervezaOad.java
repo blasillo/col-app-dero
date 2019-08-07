@@ -20,7 +20,57 @@ public class CervezaOad {
 	
 	private static final String TABLA = "CERVEZAS";
 	
-	Logger logger = LogManager.getLogger(CervezaOad.class);
+	private static final Logger logger = LogManager.getLogger(CervezaOad.class);
+	
+	
+	public Cerveza buscarPorId (long id) throws SQLException {
+		
+		Cerveza result = null;
+		
+		String sql = "SELECT * FROM " + TABLA + " WHERE id = " + id;
+		
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		
+		try {
+			logger.debug("BASE DE DATOS - " + sql );
+			conn = ConexionDb.obtenerConexionDb();
+			
+			statement = conn.createStatement();
+			rs = statement.executeQuery(sql);
+			
+			while(rs.next()) {
+				result = procesarElemento (rs);
+			}
+			
+			rs.close();
+			rs = null;
+			statement.close();
+			statement = null;
+			conn.close();
+			conn = null;
+		}
+		catch(Exception e) {
+			throw new SQLException(e);
+		}
+		finally {
+			if(rs != null) {
+				rs.close();
+				rs = null;
+			}
+			if(statement != null) {
+				statement.close();
+				statement = null;
+			}
+			if(conn != null) {
+				conn.close();
+				conn = null;
+			}
+		}
+		
+		return result;
+	}
 	
 	public List<Cerveza> buscarPorNombre (String filtro) throws SQLException {
 		

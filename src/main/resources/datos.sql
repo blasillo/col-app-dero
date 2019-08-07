@@ -13,3 +13,7 @@ INSERT INTO `Cervezas` VALUES (3,'Cornet','cornet.png',8.5,'Rubia','Strong Blond
 INSERT INTO `Cervezas` VALUES (4,'Montaraz','montaraz.jpg',5.3,'Rubia','Weizen-Weissbier','La primera creación de cervezas Montaraz, una cerveza rubia de trigo, suave, refrescante y con ligero aroma a plátano. Una cerveza artesana, elaborada en el Bierzo.');
 INSERT INTO `Cervezas` VALUES (5,'Ruda', 'ruda.jpg', 5.0, 'Tostada', 'Pale Ale' ,'Color ámbar y densa espuma, ligeramente amarga y notas dulces maltosas.');
 commit;
+
+
+
+INSERT INTO `Notas` VALUES ( 1, NOW(), 'Bastante buena', 'Esta cerveza es una referencia.',1, 1, 5); 

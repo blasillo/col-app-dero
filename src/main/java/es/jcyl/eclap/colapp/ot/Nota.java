@@ -13,6 +13,9 @@ public class Nota {
 	private Long cervezaId;
 	
 	
+	private String autor;
+	
+	
 	public Nota() {
 		super();
 	}
@@ -105,6 +108,16 @@ public class Nota {
 	public String toString() {
 		return "Nota [id=" + id + ", creado=" + creado + ", titulo=" + titulo + ", contenido=" + contenido
 				+ ", notaPublica=" + notaPublica + ", usuarioId=" + usuarioId + ", cervezaId=" + cervezaId + "]";
+	}
+
+
+	public String getAutor() {
+		return autor;
+	}
+
+
+	public void setAutor(String autor) {
+		this.autor = autor;
 	}
 	
 	

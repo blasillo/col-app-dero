@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import es.jcyl.eclap.colapp.filtros.Sesion;
 import es.jcyl.eclap.colapp.oad.LoginOad;
 import es.jcyl.eclap.colapp.ot.Usuario;
 
@@ -51,35 +52,41 @@ public class LoginControlador extends BaseControlador {
 		logger.info( "Inicio de Autenticacion");
 		
 		
-		//Session session = ((Session)request.getAttribute("session"));
-		
+		Sesion sesion = ((Sesion)request.getAttribute("session"));
 		
 		Usuario usuario;		
 	
 		try {
-			 usuario = LoginOad.validarUsuario( login , password);
-			 
-			 
 			
-			 if (usuario != null ){
-					
-		        	logger.info( "Iniciada sesion del usuario: " + login );
-		        	
-		        	crearSesion ( request, usuario);
-		        	crearCookies (response, usuario);
-		        			        	
-		        	return new ModelAndView("redirect:principal");
-				}
-				else {
-					logger.warn("Autenticación fallida");
-					ModelAndView modelo = new ModelAndView("login");
-					modelo.addObject("login", login);
-					modelo.addObject("password", password);
-					modelo.addObject("mensaje", "Nombre de usuario o contraseña incorrectos");
-					
-					return modelo;
-				}
-			 
+			if(!sesion.estaAutenticado()) {
+			
+				usuario = LoginOad.validarUsuario( login , password);
+			
+				 if (usuario != null ){
+						
+			        	logger.info( "Iniciada sesion del usuario: " + login );
+			        	
+			        	
+			        	sesion.setUsuarioAutenticado(usuario);
+			        	
+			        	return new ModelAndView("redirect:inicio");
+					}
+					else {
+						logger.warn("Autenticación fallida");
+						
+						ModelAndView modelo = new ModelAndView("login");
+						modelo.addObject("login", login);
+						modelo.addObject("password", password);
+						modelo.addObject("mensaje", "Nombre de usuario o contraseña incorrectos");
+						
+						return modelo;
+					}
+			}
+			else {
+				logger.warn("Usuario ya autenticado. Redirigiendo a inicio.");
+				return new ModelAndView("redirect:inicio");
+			}
+			
 		}
 		catch (SQLException e) {
 			logger.error("Error en la base de datos", e);
@@ -97,7 +104,7 @@ public class LoginControlador extends BaseControlador {
 	public ModelAndView getLogout(HttpServletRequest request) {
 		logger.info("GET /Logout");
 		
-		destruirSesion (request );
+		
 		
 		
 		 return new ModelAndView("redirect:inicio");
@@ -106,30 +113,6 @@ public class LoginControlador extends BaseControlador {
 	
 	
 	
-	private void crearSesion (HttpServletRequest request, Usuario usuario) {
-		HttpSession session=request.getSession();	
-        session.setAttribute("tieneSesion", "1");
-        session.setAttribute("usuario_id", usuario.getId() );
-        session.setAttribute("nombre_usuario", usuario.getNombre() );
-        
-	}
 	
-	private void destruirSesion (HttpServletRequest request) {
-		HttpSession session=request.getSession();	
-        session.setAttribute("tieneSesion", null );
-        session.setAttribute("usuario_id", null );
-        session.setAttribute("nombre_usuario", null );
-        
-	}
-	
-	
-	private void crearCookies (HttpServletResponse response, Usuario usuario) {
-		
-		Cookie galleta =new Cookie ("privilegios","usuario");
-        response.addCookie(galleta);
-
-        response.addCookie( new Cookie ( "login", usuario.getEmail() ));
-        response.addCookie( new Cookie ( "password", usuario.getPassword() ));
-	}
 
 }

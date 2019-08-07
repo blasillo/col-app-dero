@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 
 @SpringBootApplication
-@ComponentScan({"es.jcyl.eclap.colapp.config", "es.jcyl.eclap.colapp.controladores"})
+@ComponentScan({"es.jcyl.eclap.colapp.config", "es.jcyl.eclap.colapp.controladores", "es.jcyl.eclap.colapp.filtros"})
 public class ColAppApplication {
 
 	public static void main(String[] args) {

@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=ISO-8859-1" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page session="false" %>
-<c:set var="title" scope="request" value="List of Beers"/>
+<%@ page session="true" %>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -34,14 +33,19 @@
 	<div class="row justify-content-center mt-4">
 		<form class="form-inline" action="cervezas">
 			<label class="sr-only" for="searchField">Búsqueda</label>
-			<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-				<div class="input-group-addon">
-					<i class="fa fa-search"></i>
-				</div>
-				<input type="text" class="form-control" id="searchField" name="busqueda" size="50" 
-					placeholder="criterios de b&uacute;squeda">
+			
+			<div class="input-group md-form form-sm form-1 pl-0">
+			  <div class="input-group-prepend">
+			  <span class="input-group-text" id="basic-text1">
+			     <i class="fas fa-search text-white" aria-hidden="true"></i>
+			  </span>
+			  </div>
+			  <input type="text" class="form-control" id="searchField" name="busqueda" size="50" 
+					placeholder="criterios de b&uacute;squeda" value="${consulta}">
 			</div>
+        
 			<button type="submit" class="btn btn-primary">Buscar</button>
+			
 		</form>
 	</div>
 	
@@ -64,7 +68,7 @@
 					<div>Alcohol: <i>${cerv.alcohol}%</i></div>
 				</div>
 				<div class="card-block row justify-content-center">
-					<a href="/cervezas?id=${cerv.id}" class="btn btn-outline-primary btn-text-l">
+					<a href="cervezas?id=${cerv.id}" class="btn btn-outline-primary btn-text-l">
 						<i class="fa fa-info-circle"></i>
 					</a>
 				</div>

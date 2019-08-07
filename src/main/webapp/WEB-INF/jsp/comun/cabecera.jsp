@@ -1,3 +1,6 @@
+<%@ page import="es.jcyl.eclap.colapp.filtros.Sesion" %>
+
+
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top" >
 
@@ -27,7 +30,10 @@
 
 
 <%
-  if( session.getAttribute("tieneSesion") != null ) { 
+  Sesion sesion = ((Sesion)request.getAttribute("session"));
+  
+
+  if( sesion.estaAutenticado() ) { 
 %>
    	 
 	 <li class="nav-item">
@@ -43,7 +49,7 @@
       
 
 <%
-  if( session.getAttribute("tieneSesion") != null ) { 
+  if( sesion.estaAutenticado() ) {
 %>
        <li class="nav-item">
         <a class="nav-link" href="logout"><i class="fas fa-sign-out-alt" aria-hidden="true"></i> Cerrar sesi&oacute;n</a>

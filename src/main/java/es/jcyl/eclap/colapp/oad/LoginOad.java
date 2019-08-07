@@ -15,65 +15,19 @@ import es.jcyl.eclap.colapp.ot.Usuario;
 public class LoginOad {
 	
 	
-	static Logger logger = LogManager.getLogger(LoginOad.class);
+	private static final Logger logger = LogManager.getLogger(LoginOad.class);
 	
 	
 	
 	public static Usuario validarUsuario ( String login, String password ) throws SQLException {
-		
-		
-		Connection conn = null; 
-		Statement stmt = null; 
-		
+		Usuario usuario = null;
 		try {
-			
-			Usuario usuario = null;
-			
-			logger.info ("Conectando a base de datos ...");
-			
-			
-			
-			//conn = DriverManager.getConnection(ConexionDb.DB_URL,ConexionDb.USER,ConexionDb.PASS);
-			
-			conn = ConexionDb.obtenerConexionDb();
-			
-			
-			String sql = "SELECT * FROM USUARIOS WHERE EMAIL = '" + login + "' AND PASSWORD ='" + password + "'";
-			logger.info ("Ejecudando consulta: " + sql );
-			
-			 stmt = conn.createStatement(); 			 
-			 
-			 
-			 ResultSet rs = stmt.executeQuery( sql );
-			 
-			 if(rs != null && rs.next()) {
-				 // tratar resultados 
-				 
-				 usuario = new Usuario ();
-				 usuario.setId( rs.getInt("ID"));
-				 usuario.setEmail( rs.getString("EMAIL"));
-				 usuario.setPassword(rs.getString("PASSWORD"));
-				 usuario.setNombre(rs.getString("NOMBRE"));
-				 
-				 
-				 logger.info ("Resultado: " + usuario);
-				 
-			 }
-			 			 
-			 return usuario;
-			
-			
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		     usuario  = (new UsuarioOad ()).validarUsuario( login , password);     			 			 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SQLException(e);
 		}
-		finally {
-			conn.close();
-		}
-		return null;
+		
+		return usuario;
 	}
 
 }
