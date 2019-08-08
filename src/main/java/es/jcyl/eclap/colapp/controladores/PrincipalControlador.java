@@ -1,6 +1,8 @@
 package es.jcyl.eclap.colapp.controladores;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import es.jcyl.eclap.colapp.filtros.Sesion;
 import es.jcyl.eclap.colapp.oad.CervezaOad;
 import es.jcyl.eclap.colapp.oad.NotaOad;
 import es.jcyl.eclap.colapp.oad.UsuarioOad;
@@ -116,14 +119,76 @@ public class PrincipalControlador extends BaseControlador {
 			logger.info("GET /notas (id = " + cervezaid + ")");
 			
 			//Session session = ((Session)request.getAttribute("session"));
+			Sesion sesion = ((Sesion)request.getAttribute("session"));
+			
+			if ( sesion.estaAutenticado() ) {
+				Cerveza cerveza = (new CervezaOad()).buscarPorId( cervezaid );
+				
+				return new  ModelAndView("nuevaNota", "cerveza", cerveza);
+			}
+			else {
+				logger.warn("Usuario no autenticado. Redirección a login.");
+				return new ModelAndView("redirect:login");
+			}
+			
 			
 		}
+		catch(SQLException e) {
+			logger.error("Error en base de datos.", e);
+			return gestionarError("Error en base de datos.", e);
+	    }		
 		catch(Exception e) {
 			logger.error("Error no esperado.", e);
 			return gestionarError("Error no esperado.", e);
         }
 		
-		return null;
 	}
+	
+	
+	@RequestMapping(value = "/notas/nueva", method = RequestMethod.POST)
+	public ModelAndView crearNota (@RequestParam("titulo") String titulo, 
+			                       @RequestParam("contenido") String contenido, 
+			                       @RequestParam("notaPublica") Optional<String> notaPublica, 
+			                       @RequestParam("cervezaid") Integer cervezaid, 
+			                       HttpServletRequest request) {
+		try {
+			logger.info("POST /notas/nueva (...)");
+			
+			Sesion sesion = ((Sesion)request.getAttribute("session"));
+			if ( sesion.estaAutenticado() ) {
+				
+				Cerveza cerveza = (new CervezaOad()).buscarPorId( cervezaid );
+				
+				Nota nota = new Nota ((long) -1 ,
+						               (Timestamp) Timestamp.from(Instant.now()),
+						               titulo,
+						               contenido,
+						               (Boolean) (notaPublica.isPresent() ? true : false) ,
+						               (Integer) sesion.getUsuarioAutenticado().getId(),
+						               (long) cervezaid );
+				
+			  	if ( nota.esValida() ) {
+			  		if ( (new NotaOad()).insertarNota ( nota ) ) {
+			  			
+			  		}			  		
+			  	}
+			       
+				
+			}
+			
+			
+			
+			
+		}
+		catch(SQLException e) {
+			logger.error("Error en base de datos.", e);
+			return gestionarError("Error en base de datos.", e);
+	    }		
+		catch(Exception e) {
+			logger.error("Error no esperado.", e);
+			return gestionarError("Error no esperado.", e);
+        }
+		return null;
+	}		
 
 }

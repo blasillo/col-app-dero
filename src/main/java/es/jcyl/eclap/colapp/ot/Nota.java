@@ -32,6 +32,14 @@ public class Nota {
 		this.usuarioId = usuarioId;
 		this.cervezaId = cervezaId;
 	}
+	
+	
+	
+	public boolean esValida() {
+		//validacion de chichinabo
+		return (this.getTitulo().length() > 0 && 
+				this.getContenido().length() > 0 );
+	}
 
 
 	public Long getId() {

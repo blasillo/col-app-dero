@@ -54,13 +54,15 @@
 	<div class="row justify-content-center mt-5">
 	    <div class="col-10 col-md-8 col-lg-6 text-center">
 			
-				<% if ( true ) { %>
+			<c:choose>
+				<c:when test="${requestScope.session.estaAutenticado()}"> 
 					<a class="nav-item btn btn-primary" href="notas?id=${cerveza.id}">Nueva nota</a>
-				<%} else { %>    
+				</c:when>    
+				<c:otherwise> 
 					<p>Es necesario iniciar sesión para poner una nota</p>
 					<a class="nav-item btn btn-primary" href="login">Iniciar sesión</a>
-				<%} %>
-			
+				</c:otherwise>
+			</c:choose>
 	    </div>
 	</div>
 	

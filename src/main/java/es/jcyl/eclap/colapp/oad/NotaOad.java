@@ -72,6 +72,46 @@ public class NotaOad {
 	}
 	
 	
+	public boolean insertarNota(Nota nota) throws SQLException {
+		boolean result = false;
+				
+		String sql = "INSERT INTO " + TABLA + " (titulo, contenido, creado, publico, cervezaid, usuarioid) VALUES (\"" + 
+		               nota.getTitulo() + "\", \"" + nota.getContenido() + "\", \"" + nota.getCreado() + "\", \"" +
+				      (nota.getNotaPublica() ? 1 : 0) + "\", " + nota.getCervezaId() + ", " + nota.getUsuarioId()  + ")";
+		
+		
+		Connection conn = null;
+		Statement statement = null;
+		try {
+			logger.debug("BASE DE DATOS - " + sql );
+			conn = ConexionDb.obtenerConexionDb();
+			statement = conn.createStatement();
+			statement.executeUpdate(sql);
+			result = true;
+
+			statement.close();
+			statement = null;
+			conn.close();
+			conn = null;
+		}
+		catch(Exception e) {
+			throw new SQLException(e);
+		}	
+		finally {
+			if(statement != null) {
+				statement.close();
+				statement = null;
+			}
+			if(conn != null) {
+				conn.close();
+				conn = null;
+			}
+		}
+		return result;
+	}
+		
+	
+	
 	
 	protected Nota procesarNota (ResultSet rs) throws SQLException {
 		return new Nota (rs.getLong("id"), 
