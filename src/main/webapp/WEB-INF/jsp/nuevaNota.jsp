@@ -55,7 +55,7 @@
 	        </div>
 	        <div class="form-check">
 	            <label class="form-check-label">
-	                <input type="checkbox" class="form-check-input" name="publicNote" value="${nota.notaPublica}">
+	                <input type="checkbox" class="form-check-input" name="notaPublica" value="${nota.notaPublica}">
 	                ¿Compartida para todos los usuarios?
 	            </label>
 	        </div>

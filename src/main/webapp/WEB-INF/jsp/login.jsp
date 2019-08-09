@@ -32,12 +32,12 @@
 	    <div class="login-page">
 	      <div class="form">
 	       
-	       <form class="login-form" action="login" method="post">
+	       <form class="login-form" action="autenticacion" method="get">
 	          <h2>Inicio de sesi&oacute;n</h2>
 	          
 	          <div class="input-container">
 	            <i class="fa fa-envelope icon"></i>
- 	            <input class="input-field" type="text" name="login" placeholder="email"/>		       
+ 	            <input class="input-field" type="text" name="login" placeholder="email" value="${login}"/>		       
 		      </div> 
 		      
 		      <div class="input-container">

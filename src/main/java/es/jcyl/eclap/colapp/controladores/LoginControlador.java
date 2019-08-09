@@ -43,7 +43,7 @@ public class LoginControlador extends BaseControlador {
     }
 	
 	
-	@RequestMapping(value="/login", method = RequestMethod.POST )
+	@RequestMapping(value="/autenticacion", method = RequestMethod.GET )
     public ModelAndView postLogin (HttpServletRequest request, 
     		                    HttpServletResponse response, 
     		                    @RequestParam("login") String login , 

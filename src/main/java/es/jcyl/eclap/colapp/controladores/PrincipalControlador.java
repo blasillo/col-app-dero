@@ -124,7 +124,7 @@ public class PrincipalControlador extends BaseControlador {
 			if ( sesion.estaAutenticado() ) {
 				Cerveza cerveza = (new CervezaOad()).buscarPorId( cervezaid );
 				
-				return new  ModelAndView("nuevaNota", "cerveza", cerveza);
+					return new  ModelAndView("nuevaNota", "cerveza", cerveza);
 			}
 			else {
 				logger.warn("Usuario no autenticado. Redirección a login.");
