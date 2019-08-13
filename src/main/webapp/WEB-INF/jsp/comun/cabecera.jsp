@@ -37,14 +37,14 @@
 %>
    	 
 	 <li class="nav-item">
-		 <a class="nav-link" href="notas"><i class="fa fa-sticky-note"></i> Mis notas</a>
+		 <a class="nav-link" href="notas_usuario"><i class="fa fa-sticky-note"></i> Mis notas</a>
 	 </li>
 <%
   }
 %>
       
       <li class="nav-item">
-        <a class="nav-link" href="lecciones"><i class="fa fa-book"></i> Aprendizaje</a>
+        <a class="nav-link" href="#"><i class="fa fa-book"></i> Aprendizaje</a>
       </li>
       
 

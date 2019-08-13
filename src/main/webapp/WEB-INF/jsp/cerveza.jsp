@@ -76,7 +76,7 @@
 					        <h5>${nota.titulo}</h5>
 					        <p>${nota.contenido}</p>
 					        
-					        <p class="small"><i><fmt:formatDate value="${nota.creado}" pattern="yyyy-MM-dd HH:mm:ss" /> - ${nota.autor}</i></p>
+					        <p class="small"><i><fmt:formatDate value="${nota.creado}" pattern="yyyy-MM-dd HH:mm:ss" /> - ${nota.usuario.nombre}</i></p>
 					        
 					    </div>
 					</div>

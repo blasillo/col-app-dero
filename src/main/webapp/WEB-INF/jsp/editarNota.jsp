@@ -29,7 +29,7 @@
 
 <div class="container">
 	<div class="row justify-content-center mt-4">
-		<h2 class="col-12 text-center">Nueva nota</h2>
+		<h2 class="col-12 text-center">Modificar nota</h2>
 	</div>
 	
 	<c:if test="${error.length() > 0}">
@@ -42,8 +42,9 @@
 	
 	
 	<div class="row justify-content-center mt-4 mb-2">
-	    <form method="POST" action="notas_nueva">
-	    		<input type="hidden" name="cervezaid" value="${cerveza.id}">
+	    <form method="POST" action="notas_modificar">
+	    		
+	    		<input type="hidden" name="id" value="${nota.id}">
 	    		
 	        <div class="form-group">
 	            <label>Título</label>

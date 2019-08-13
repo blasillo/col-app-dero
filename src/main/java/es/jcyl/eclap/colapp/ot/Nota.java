@@ -1,6 +1,11 @@
 package es.jcyl.eclap.colapp.ot;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
+
+import es.jcyl.eclap.colapp.ln.CervezaLn;
+import es.jcyl.eclap.colapp.ln.UsuarioLn;
+import es.jcyl.eclap.colapp.oad.CervezaOad;
 
 public class Nota {
 	
@@ -11,10 +16,6 @@ public class Nota {
 	private Boolean notaPublica;
 	private Integer usuarioId;
 	private Long cervezaId;
-	
-	
-	private String autor;
-	
 	
 	public Nota() {
 		super();
@@ -119,15 +120,26 @@ public class Nota {
 	}
 
 
-	public String getAutor() {
-		return autor;
+	public Usuario getUsuario() {
+		
+		return UsuarioLn.getUsuarioPorId( this.usuarioId );
 	}
 
 
-	public void setAutor(String autor) {
-		this.autor = autor;
+	public Cerveza getCerveza() {
+		
+		try {
+		  Cerveza cerveza =  CervezaLn.getCervezaPorId(  this.cervezaId);
+		  
+		  return cerveza;
+		}
+		catch (Exception e) {
+			return null;
+		}
+		
+		
+		
 	}
-	
 	
 	
 	

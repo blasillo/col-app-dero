@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.jcyl.eclap.colapp.filtros.Sesion;
-import es.jcyl.eclap.colapp.oad.CervezaOad;
-import es.jcyl.eclap.colapp.oad.NotaOad;
-import es.jcyl.eclap.colapp.oad.UsuarioOad;
+import es.jcyl.eclap.colapp.ln.CervezaLn;
+import es.jcyl.eclap.colapp.ln.NotaLn;
+import es.jcyl.eclap.colapp.ln.UsuarioLn;
+
 import es.jcyl.eclap.colapp.ot.Cerveza;
 import es.jcyl.eclap.colapp.ot.Nota;
 import es.jcyl.eclap.colapp.ot.Usuario;
@@ -44,7 +44,7 @@ public class PrincipalControlador extends BaseControlador {
 		try {
 			logger.info("GET /cervezas (busqueda = '" + busqueda + "')");
 			
-			List<Cerveza> lista = (new CervezaOad()).buscarPorNombre(busqueda);
+			List<Cerveza> lista = CervezaLn.buscarPorNombre ( busqueda); 
 			
 			logger.info(  "Recuperadas :" + lista.size() );
 			
@@ -68,28 +68,23 @@ public class PrincipalControlador extends BaseControlador {
 		try {
 			logger.info("GET /cervezas (id = '" + id + "')");
 			
-			//Session session = ((Session)request.getAttribute("session"));
-			HttpSession  sesion = request.getSession();
-			Integer usuarioId = -1;
+            Sesion sesion = ((Sesion)request.getAttribute("session"));
+            
+            int usuarioId = -1;
 			
-			if ( sesion.getAttribute("tieneSesion") != null  ) {
-				logger.debug("Usuario autenticado.");
-				usuarioId = (Integer) sesion.getAttribute("usuario_id");
+			if ( sesion.estaAutenticado() ) {
+				usuarioId = sesion.getUsuarioAutenticado().getId();
 			}
-			else {
-				logger.debug("Usuario no autenticado.");
-			}
-			
-            Cerveza  cerveza =   (new CervezaOad()).buscarPorId ( id );
+						
+            Cerveza  cerveza = CervezaLn.getCervezaPorId( id );
 			
 			// obtener tambien las notas			
-			List<Nota> notas  = (new NotaOad()).buscarPorCervezaId( id );
+            
+			List<Nota> notas  = NotaLn.getNotasPorCerveza( id );
 			List<Nota> notasVisibles = new ArrayList<Nota>();
 			for(Nota n : notas) {
 				if(n.getNotaPublica() || n.getUsuarioId()  == usuarioId) {
-					
-					Usuario usuario = (new UsuarioOad()).buscarPorId(  n.getUsuarioId()  );					
-					n.setAutor( usuario.getNombre() );					
+																	
 					notasVisibles.add(n);
 				}
 			}
@@ -122,9 +117,10 @@ public class PrincipalControlador extends BaseControlador {
 			Sesion sesion = ((Sesion)request.getAttribute("session"));
 			
 			if ( sesion.estaAutenticado() ) {
-				Cerveza cerveza = (new CervezaOad()).buscarPorId( cervezaid );
+								
+				Cerveza cerveza = CervezaLn.getCervezaPorId(cervezaid);
 				
-					return new  ModelAndView("nuevaNota", "cerveza", cerveza);
+				return new  ModelAndView("nuevaNota", "cerveza", cerveza);
 			}
 			else {
 				logger.warn("Usuario no autenticado. Redirección a login.");
@@ -145,20 +141,50 @@ public class PrincipalControlador extends BaseControlador {
 	}
 	
 	
-	@RequestMapping(value = "/notas/nueva", method = RequestMethod.POST)
+	@RequestMapping(value = "/notas_usuario")
+	public ModelAndView usuarioNotas(HttpServletRequest request) {
+				
+		try {
+			logger.info("GET /notas/usuario");
+			Sesion sesion = ((Sesion)request.getAttribute("session"));
+			
+			if ( sesion.estaAutenticado() ) {
+				
+				List<Nota> notas = NotaLn.getNotasPorUsuario(sesion.getUsuarioAutenticado().getId()); 
+
+				return new ModelAndView("notas", "notas", notas);
+			}
+			else {
+				logger.warn("Usuario no autenticado. Redirección a login.");
+				return new ModelAndView("redirect:login");
+			}
+			
+		}
+		catch(SQLException e) {
+			logger.error("Error en base de datos.", e);
+			return gestionarError("Error en base de datos.", e);
+	    }		
+		catch(Exception e) {
+			logger.error("Error no esperado.", e);
+			return gestionarError("Error no esperado.", e);
+        }
+	}
+	
+	
+	@RequestMapping(value = "/notas_nueva", method = RequestMethod.POST)
 	public ModelAndView crearNota (@RequestParam("titulo") String titulo, 
 			                       @RequestParam("contenido") String contenido, 
 			                       @RequestParam("notaPublica") Optional<String> notaPublica, 
 			                       @RequestParam("cervezaid") Integer cervezaid, 
 			                       HttpServletRequest request) {
 		try {
-			logger.info("POST /notas/nueva (...)");
+			logger.info("POST /notas_nueva (...)");
 			
 			Sesion sesion = ((Sesion)request.getAttribute("session"));
 			if ( sesion.estaAutenticado() ) {
 				
-				Cerveza cerveza = (new CervezaOad()).buscarPorId( cervezaid );
-				
+				//Cerveza cerveza = CervezaLn.getCervezaPorId( cervezaid );
+										
 				Nota nota = new Nota ((long) -1 ,
 						               (Timestamp) Timestamp.from(Instant.now()),
 						               titulo,
@@ -168,14 +194,118 @@ public class PrincipalControlador extends BaseControlador {
 						               (long) cervezaid );
 				
 			  	if ( nota.esValida() ) {
-			  		if ( (new NotaOad()).insertarNota ( nota ) ) {
-			  			
-			  		}			  		
+			  		if ( NotaLn.insertarNota( nota ) ) {			  			
+			  			logger.info("Nota insertada correctamente! Redirigiendo.");
+						return new ModelAndView("redirect:cervezas?id=" + nota.getCervezaId() );
+					}
+					else {
+						logger.info("La modificación de los datos ha fallado en la base de datos.");
+						ModelAndView modelo = new ModelAndView("nuevaNota", "nota", nota);	
+						modelo.addObject("error", "La introducción de los datos ha fallado por motivos desconocidos.");
+						return modelo;
+					}		  		
 			  	}
-			       
-				
+			  	else { // no valida
+			  		logger.info("Los datos proporcionados no son válidos.");
+					ModelAndView modelo = new ModelAndView("nuevaNota", "nota", nota);
+					modelo.addObject("error", "Datos no válidos. El título y el comentario son obligatorios.");
+					return modelo;
+			  	}
+			  	
+			}
+			else {
+				logger.warn("Usuario no autenticado. Redirección a login.");
+				return new ModelAndView("redirect:login");
 			}
 			
+		}
+		catch(SQLException e) {
+			logger.error("Error en base de datos.", e);
+			return gestionarError("Error en base de datos.", e);
+	    }		
+		catch(Exception e) {
+			logger.error("Error no esperado.", e);
+			return gestionarError("Error no esperado.", e);
+        }
+	}	
+	
+	@RequestMapping(value = "/notas_editar", params = "id", method = RequestMethod.GET)
+	public ModelAndView editarNota(@RequestParam("id") int id, HttpServletRequest request) {
+		
+		try {
+			logger.info("GET /notas_editar (id = " + id + ")" );
+		
+			Sesion sesion = ((Sesion)request.getAttribute("session"));
+			if ( sesion.estaAutenticado() ) {
+				
+				Nota nota = NotaLn.getNotaPorId(id);				
+				
+				return new ModelAndView("editarNota", "nota", nota);
+				
+			}
+			else {
+				logger.warn("Usuario no autenticado. Redirección a login.");
+				return new ModelAndView("redirect:login");
+			}
+		}
+		catch(SQLException e) {
+			logger.error("Error en base de datos.", e);
+			return gestionarError("Error en base de datos.", e);
+	    }		
+		catch(Exception e) {
+			logger.error("Error no esperado.", e);
+			return gestionarError("Error no esperado.", e);
+        }
+	}
+	
+	
+	@RequestMapping(value = "/notas_modificar", method = RequestMethod.POST)
+	public ModelAndView modificarNota (@RequestParam("id") int id,
+			                           @RequestParam("titulo") String titulo, 
+			                           @RequestParam("contenido") String contenido, 
+			                           @RequestParam("notaPublica") Optional<String> notaPublica, 
+			                           HttpServletRequest request) {
+									
+		
+		try {
+			
+			logger.info("POST /notas_modificar (id = " + id + ")");
+			
+			Sesion sesion = ((Sesion)request.getAttribute("session"));
+			if ( sesion.estaAutenticado() ) {
+				
+				Nota nota = NotaLn.getNotaPorId(id);
+				
+				nota.setTitulo (titulo);
+				nota.setContenido(contenido);
+				nota.setNotaPublica( notaPublica.isPresent() ? true : false );
+				
+				if ( nota.esValida() ) {				
+					if( NotaLn.modificarNota( nota )) {
+						
+						logger.info("Actualización correctamente grabada! Redirigiendo.");
+						return new ModelAndView("redirect:cervezas?id=" + nota.getCervezaId() );
+					}
+					else {
+						logger.info("La modificación de los datos ha fallado en la base de datos.");
+						ModelAndView modelo = new ModelAndView("editarNota", "nota", nota);	
+						modelo.addObject("error", "La modificación de los datos ha fallado por motivos desconocidos.");
+						return modelo;
+					}
+				}
+				else {
+					logger.info("Los datos proporcionados no son válidos.");
+					ModelAndView modelo = new ModelAndView("editarNota", "nota", nota);
+					modelo.addObject("error", "Datos no válidos. El título y el comentario son obligatorios.");
+					return modelo;
+				}
+				
+				
+			}
+			else {
+				logger.warn("Usuario no autenticado. Redirección a login.");
+				return new ModelAndView("redirect:login");
+			}
 			
 			
 			
@@ -188,7 +318,8 @@ public class PrincipalControlador extends BaseControlador {
 			logger.error("Error no esperado.", e);
 			return gestionarError("Error no esperado.", e);
         }
-		return null;
-	}		
+		
+	}
+	
 
 }
