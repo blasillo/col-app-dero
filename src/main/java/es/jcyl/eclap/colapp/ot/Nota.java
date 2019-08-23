@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 import es.jcyl.eclap.colapp.ln.CervezaLn;
 import es.jcyl.eclap.colapp.ln.UsuarioLn;
-import es.jcyl.eclap.colapp.oad.CervezaOad;
+
 
 public class Nota {
 	

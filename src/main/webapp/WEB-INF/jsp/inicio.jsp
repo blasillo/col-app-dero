@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=ISO-8859-1" session="false" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>

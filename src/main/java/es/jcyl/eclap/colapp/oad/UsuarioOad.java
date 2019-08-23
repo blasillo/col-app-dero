@@ -75,7 +75,7 @@ public class UsuarioOad {
 		Usuario usuario = null;
 		
 		logger.info ("Conectando a base de datos ...");		
-		String sql = "SELECT * FROM " + TABLA + " WHERE EMAIL = '" + login + "' AND PASSWORD ='" + password + "'";
+		String sql = "SELECT * FROM " + TABLA + " WHERE EMAIL = '" + login + "' AND PASSWORD_HASH = MD5('" + password + "')";
 		
 		Connection conn = null;
 		Statement statement = null;
@@ -184,7 +184,8 @@ public class UsuarioOad {
 		return new Usuario( rs.getInt ("id"), 
 				            rs.getString("email"), 
 				            rs.getString("password"), 
-				            rs.getString("nombre"));
+				            rs.getString("nombre"),
+				            rs.getString("rol"));
 		
 	}
 

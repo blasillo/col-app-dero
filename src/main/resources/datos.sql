@@ -1,9 +1,14 @@
 
 
-INSERT INTO Usuarios VALUES (1, "administrador-colapp@jcyl.es", "supersecreto", "Administrador");
-INSERT INTO Usuarios VALUES (2, "TorGomRo@jcyl.es", "TorGomRo", "Roberto Torres");
-INSERT INTO Usuarios VALUES (3, "NecSotGa@jcyl.es", "NecSotGa", "Gabriel Necedes");
-INSERT INTO Usuarios VALUES (4, "LopGarIo@jcyl.es", "LopGarIo", "Iovani Lopez");
+INSERT INTO Usuarios VALUES (1, "administrador-colapp@jcyl.es", "supersecreto", "", "Administrador");
+INSERT INTO Usuarios VALUES (2, "TorGomRo@jcyl.es", "TorGomRo", "", "Roberto Torres" );
+INSERT INTO Usuarios VALUES (3, "NecSotGa@jcyl.es", "NecSotGa", "", "Gabriel Necedes");
+INSERT INTO Usuarios VALUES (4, "LopGarIo@jcyl.es", "LopGarIo", "", "Iovani Lopez");
+
+update usuarios set rol='ADMINISTRADOR' where id =1;
+
+
+update usuarios set password_hash = MD5(password);
 
 commit;
 

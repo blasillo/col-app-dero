@@ -1,13 +1,34 @@
 package es.jcyl.eclap.colapp.ot;
 
-public class Cerveza {
+import java.io.Serializable;
+
+
+
+
+
+public class Cerveza implements Serializable {
+	
+	
+	private static final long serialVersionUID = 1L;
+
 	
 	private Long id;
+	
+	
 	private String nombre;
+	
 	private String imagen;
+	
+	
 	private Double alcohol;
+	
+	
 	private String color;
+	
+	
 	private String categoria;
+	
+	
 	private String descripcion;
 	
 	

@@ -41,7 +41,7 @@
 	            <c:forEach var="nota" items="${notas}">
 		            <div class="row justify-content-center note">
 		            	 <div class="col-12">
-					        <h5>${nota.titulo} <a href="notas_editar?id=${nota.id}"><i class="fa fa-pencil ml-2"></i></a></h5>
+					        <h5>${nota.titulo} <a href="notas_editar?id=${nota.id}"><i class="fas fa-pencil-alt ml-2"></i></a></h5>
 					        <p>${nota.contenido}</p>
 					        <p class="small"><i><fmt:formatDate value="${nota.creado}" pattern="yyyy-MM-dd HH:mm:ss" /> - ${nota.cerveza.nombre}</i></p>
 					    </div>
