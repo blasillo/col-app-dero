@@ -12,7 +12,7 @@ import es.jcyl.eclap.colapp.ot.Nota;
 public class NotaLn {
 	
 	
-	//private static final Logger logger = LogManager.getLogger(NotaLn.class);
+	private static final Logger logger = LogManager.getLogger(NotaLn.class);
 	
 	public static Nota getNotaPorId (int  id ) throws SQLException {
 		
@@ -21,10 +21,16 @@ public class NotaLn {
 	
 	
 	public static boolean insertarNota (Nota nota) throws SQLException {
+
+		logger.info ("Insertando nueva nota");
+
 		return (new NotaOad()).insertarNota(nota);
 	}
 	
-    public static boolean modificarNota (Nota nota) throws SQLException {    	
+    public static boolean modificarNota (Nota nota) throws SQLException { 
+		
+		logger.info ("Modificando nota");
+		
     	return (new NotaOad()).actualizarNota(nota);
 	}
 	

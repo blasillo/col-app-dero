@@ -22,11 +22,11 @@ import org.springframework.web.servlet.ModelAndView;
 import es.jcyl.eclap.colapp.filtros.Sesion;
 import es.jcyl.eclap.colapp.ln.CervezaLn;
 import es.jcyl.eclap.colapp.ln.NotaLn;
-import es.jcyl.eclap.colapp.ln.UsuarioLn;
+
 
 import es.jcyl.eclap.colapp.ot.Cerveza;
 import es.jcyl.eclap.colapp.ot.Nota;
-import es.jcyl.eclap.colapp.ot.Usuario;
+
 
 
 

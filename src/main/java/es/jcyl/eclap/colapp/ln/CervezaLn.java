@@ -7,7 +7,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import es.jcyl.eclap.colapp.oad.CervezaOad;
-import es.jcyl.eclap.colapp.oad.NotaOad;
 import es.jcyl.eclap.colapp.ot.Cerveza;
 
 public class CervezaLn {

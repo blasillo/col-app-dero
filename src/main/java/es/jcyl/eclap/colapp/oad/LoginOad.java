@@ -1,15 +1,12 @@
 package es.jcyl.eclap.colapp.oad;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import es.jcyl.eclap.colapp.controladores.LoginControlador;
+
 import es.jcyl.eclap.colapp.ot.Usuario;
 
 public class LoginOad {
@@ -21,6 +18,9 @@ public class LoginOad {
 	
 	public static Usuario validarUsuario ( String login, String password ) throws SQLException {
 		Usuario usuario = null;
+
+		logger.info("Validando usuario :" + login);
+
 		try {
 		     usuario  = (new UsuarioOad ()).validarUsuario( login , password);     			 			 
 		} catch (SQLException e) {
