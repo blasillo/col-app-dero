@@ -57,13 +57,13 @@ public class PrincipalControlador extends BaseControlador {
 			return modelo;
 		}
 		catch(SQLException e) {
-		
+			logger.error("Error en base de datos.", e);
+			return gestionarError("Error no esperado.", e);
 		}		
 		catch(Exception e) {
 			logger.error("Error no esperado.", e);
 			return gestionarError("Error no esperado.", e);
 		}
-		return null;
 	}
 	
 	

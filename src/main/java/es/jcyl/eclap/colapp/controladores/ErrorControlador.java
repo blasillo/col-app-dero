@@ -11,13 +11,14 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ErrorControlador implements ErrorController {
 	
+	private static final String PATH = "error";
 	
-	 @RequestMapping(value = "/error")	 
+	 @RequestMapping(value = PATH)	 
 	 public ModelAndView generaPaginaError (HttpServletRequest request ) {
 		 
-		 ModelAndView paginaError = new ModelAndView("paginaError");
 		 
-		 String errorMensaje = "";
+		 
+		 String errorMensaje = "Error interno de la aplicación";
 		 
 		 int httpErrorCode = getErrorCode(request);
 		 switch (httpErrorCode) {
@@ -40,10 +41,8 @@ public class ErrorControlador implements ErrorController {
 			 }
 			 
 		 }
-		 
-		 paginaError.addObject("errorMensaje", errorMensaje);
-		 
-		 return paginaError;
+		 		 
+		 return new ModelAndView("error" ,  "errorMensaje" , errorMensaje) ;
 		 
 	 }
 	 
@@ -55,8 +54,7 @@ public class ErrorControlador implements ErrorController {
 
 	@Override
 	public String getErrorPath() {
-		// TODO Auto-generated method stub
-		return null;
+		return PATH;
 	}
 	 
 	 

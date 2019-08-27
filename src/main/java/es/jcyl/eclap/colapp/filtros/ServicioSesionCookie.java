@@ -6,7 +6,6 @@ import java.util.Hashtable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import es.jcyl.eclap.colapp.controladores.BaseControlador;
 
 public class ServicioSesionCookie {
 	

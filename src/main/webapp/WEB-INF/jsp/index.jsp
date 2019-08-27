@@ -6,6 +6,6 @@
     <META HTTP-EQUIV="Refresh" CONTENT="0;URL=inicio">
 </head>
 <body>
-    <p>Cargando aplicaci&oacute;n ...</p>
+    <p>Iniciando aplicaci&oacute;n ...</p>
 </body>
 </html>

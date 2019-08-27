@@ -1,6 +1,5 @@
 package es.jcyl.eclap.colapp.ot;
 
-import java.sql.SQLException;
 import java.sql.Timestamp;
 
 import es.jcyl.eclap.colapp.ln.CervezaLn;

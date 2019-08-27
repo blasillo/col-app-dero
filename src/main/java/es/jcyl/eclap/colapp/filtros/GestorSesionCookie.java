@@ -1,8 +1,6 @@
 package es.jcyl.eclap.colapp.filtros;
 
-import java.util.Dictionary;
-import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

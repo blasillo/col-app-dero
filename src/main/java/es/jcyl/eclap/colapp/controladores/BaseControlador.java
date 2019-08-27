@@ -15,6 +15,9 @@ public abstract class BaseControlador {
 	}
 	
 	public ModelAndView gestionarError(String mensaje) {
+
+		logger.warn ("Se ha producido un error.");
+
 		ModelAndView model = new ModelAndView("error");
 		model.addObject("mensaje", mensaje);
 		return model;

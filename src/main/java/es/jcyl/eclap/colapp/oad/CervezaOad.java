@@ -101,6 +101,7 @@ public class CervezaOad {
 			conn = null;
 		}
 		catch(Exception e) {
+			logger.warn( "Error de SQL: " + sql );
 			throw new SQLException(e);
 		}
 		finally {
