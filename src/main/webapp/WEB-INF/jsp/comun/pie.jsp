@@ -2,9 +2,9 @@
 
 
 
-    <footer class="footer">
+    <footer class="footer-copyright text-center py-3 bg-dark">
 			<div class="container">
-				<span> Col-App-Dero - <i class='fa fa-heart'> Con fines educativos!</i> </span>
+				<span class="text-light"> Col-App-Dero - <i class="fas fa-thumbs-up"></i> Con fines educativos. 2019 @Blasillo </span>
 			</div>
 	</footer>
 		

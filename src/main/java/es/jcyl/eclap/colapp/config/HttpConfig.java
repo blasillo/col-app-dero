@@ -13,7 +13,7 @@ public class HttpConfig {
 	private int httpPort = 8080;
 	
 	Logger logger = LogManager.getLogger(HttpConfig.class);
-	
+	  
 	
 
 }

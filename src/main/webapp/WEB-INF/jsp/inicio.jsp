@@ -34,19 +34,23 @@
 	
 	<div class="row justify-content-center align-items-center mt-5">
 		<div class="col-10 col-md-6 text-center">
-			<img src="" class="img-fluid img-blur">
-			<!-- Image source: https://unsplash.com/photos/JKMnm3CIncw -->
+			<img src="imagenes/colador.png" width="40%" class="img-fluid rounded-circle mx-auto">
 		</div>
 		<div class="col-10 col-md-6 p-2 pl-4">
-			<p>Lorem ipsum </p>
+			<p>Col-App-Dero es una aplicaci&oacute;n deliberadamente insegura que permite a los desarrolladores 
+			   probar las vulnerabilidades que se encuentran frecuentemente en aplicaciones Java.</p>
+			   
+			<p>El &uacute;nico prop&oacute;sito es aprender sobre las vulnerabilidades de seguridad y comprender qu&eacute; sucede cuando incluso un peque&ntilde;o c&oacute;digo malicioso se introduce en las aplicaciones.</p>
+			
+			<p>Garcias por el inter&eacute;s</p> 
 		</div>
 	</div>
 	
 	
 	<div class="row justify-content-center mt-5 mb-5">
-		<h4 class="col-12 text-center">Col.App.Deros es ...</h4>
+		<h4 class="col-12 text-center">Col.App.Dero es un proyecto personal</h4>
 		<div class="col-12 text-center">
-			<p>Si tienes una cuenta ....</p>
+			<p>Si tienes cualquier sugerencia, queja, opini&oacute;n ... </p>
 		</div>
 	</div>	
  
