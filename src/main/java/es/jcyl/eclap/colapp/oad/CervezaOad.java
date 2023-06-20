@@ -13,9 +13,6 @@ import org.apache.logging.log4j.Logger;
 import es.jcyl.eclap.colapp.ot.Cerveza;
 
 
-
-
-
 public class CervezaOad {
 	
 	private static final String TABLA = "CERVEZAS";
