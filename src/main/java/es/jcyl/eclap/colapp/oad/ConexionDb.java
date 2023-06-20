@@ -10,7 +10,7 @@ public class ConexionDb {
 	
 	public static Connection obtenerConexionDb() throws SQLException, ClassNotFoundException {		
 		Class.forName(JDBC_DRIVER);		
-		Connection conn = DriverManager.getConnection("jdbc:h2:mem:colappdb");
+		Connection conn = DriverManager.getConnection("jdbc:h2:mem:colappdb;SCHEMA=COLAPP","sa","");
 		return conn;
 	}
 

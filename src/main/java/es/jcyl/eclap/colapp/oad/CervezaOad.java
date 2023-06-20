@@ -91,7 +91,7 @@ public class CervezaOad {
 			}
 			
 			rs.close();
-			rs = null;
+				rs = null;
 			statement.close();
 			statement = null;
 			conn.close();
