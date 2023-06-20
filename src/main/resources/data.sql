@@ -18,6 +18,6 @@ INSERT INTO colapp.cervezas VALUES (9,'Perraborracha', 'perraborracha.png', 4.6 
 INSERT INTO colapp.cervezas VALUES (10,'Barreno', 'barreno.png', 8.8 , 'Negra', 'Stout' ,'Cerveza negra, con aromas y sabor a café, regaliz, chocolate toque licoroso que da paso a ligero lúpulo. Cuerpo medio-completo. Amarga.');
 
 
-INSERT INTO COLAPP.NOTAS  VALUES ( 1, NOW(), 'Bastante buena', 'Esta cerveza es una referencia.',1, 1, 5);
+INSERT INTO COLAPP.NOTAS  VALUES ( 1, NOW(), 'Bastante buena', 'Esta cerveza es una referencia.',1, 1, 1);
 
 commit;

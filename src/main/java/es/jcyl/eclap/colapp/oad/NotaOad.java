@@ -175,9 +175,9 @@ public class NotaOad {
 	public boolean insertarNota(Nota nota) throws SQLException {
 		boolean result = false;
 				
-		String sql = "INSERT INTO " + TABLA + " (titulo, contenido, creado, publico, cervezaid, usuarioid) VALUES (\"" + 
-		               nota.getTitulo() + "\", \"" + nota.getContenido() + "\", \"" + nota.getCreado() + "\", \"" +
-				      (nota.getNotaPublica() ? 1 : 0) + "\", " + nota.getCervezaId() + ", " + nota.getUsuarioId()  + ")";
+		String sql = "INSERT INTO " + TABLA + " (titulo, contenido, creado, publico, cervezaid, usuarioid) VALUES ('" +
+		               nota.getTitulo() + "', '" + nota.getContenido() + "', '" + nota.getCreado() + "', '" +
+				      (nota.getNotaPublica() ? 1 : 0) + "', " + nota.getCervezaId() + ", " + nota.getUsuarioId()  + ")";
 		
 		
 		Connection conn = null;

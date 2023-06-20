@@ -75,7 +75,7 @@ public class UsuarioOad {
 		Usuario usuario = null;
 		
 		logger.info ("Conectando a base de datos ...");		
-		String sql = "SELECT * FROM " + TABLA + " WHERE EMAIL = '" + login + "' AND PASSWORD_HASH = MD5('" + password + "')";
+		String sql = "SELECT * FROM " + TABLA + " WHERE EMAIL = '" + login + "' AND PASSWORD ='" + password + "'";
 		
 		Connection conn = null;
 		Statement statement = null;
