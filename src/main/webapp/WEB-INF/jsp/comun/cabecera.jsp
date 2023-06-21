@@ -42,11 +42,8 @@
 <%
   }
 %>
-      
-      <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fa fa-book"></i> Aprendizaje</a>
-      </li>
-      
+    </ul>
+        <ul class="navbar-nav mr-auto navbar-left">
 
 <%
   if( sesion.estaAutenticado() ) {

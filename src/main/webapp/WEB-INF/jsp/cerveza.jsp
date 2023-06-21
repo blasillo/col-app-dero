@@ -77,7 +77,7 @@
 					        <p>${nota.contenido}</p>
 					        
 					        <p class="small"><i><fmt:formatDate value="${nota.creado}" pattern="yyyy-MM-dd HH:mm:ss" /> - ${nota.usuario.nombre}</i></p>
-					        
+					        <!-- Nota de  ${nota.usuario.email} -->
 					    </div>
 					</div>
 				</c:forEach>
