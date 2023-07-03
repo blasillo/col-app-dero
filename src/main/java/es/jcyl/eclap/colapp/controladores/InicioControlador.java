@@ -2,6 +2,7 @@ package es.jcyl.eclap.colapp.controladores;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -19,8 +20,8 @@ public class InicioControlador {
 	
 	
 	@RequestMapping("/inicio")
-    public String inicio (Map<String, Object> modelo) {
-        
+    public String inicio (Map<String, Object> modelo, HttpServletResponse response) {
+        response.setHeader("X_FLAG", "FLAG{En_1a_cab3CEr4}");
         return "inicio";
     }
 	

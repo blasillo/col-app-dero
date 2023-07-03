@@ -1,4 +1,8 @@
 <%@ page contentType="text/html; charset=ISO-8859-1" session="false" %>
+
+<!--
+Esta es un inicio de aplicación mientras terminamos la nueva en /nuevo-inicio-beta
+-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -50,7 +54,7 @@
 	<div class="row justify-content-center mt-5 mb-5">
 		<h4 class="col-12 text-center">Col.App.Dero es un proyecto personal</h4>
 		<div class="col-12 text-center">
-			<p>Si tienes cualquier sugerencia, queja, opini&oacute;n ... </p>
+			<p>Si tienes cualquier sugerencia,  queja, opini&oacute;n <a href="pagina-secreta/index.html">...</a> </p>
 		</div>
 	</div>	
  
