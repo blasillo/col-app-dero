@@ -28,20 +28,10 @@ public class WebConfig implements WebMvcConfigurer {
 		                        .excludePathPatterns("/js/**")
 		                        .excludePathPatterns("/css/**" )
 		                        .excludePathPatterns("/imagenes/**" )
-		                        .excludePathPatterns("/fontawesome/**" );
-		                        /*
-		                        .excludePathPatterns("*.js" )
-		                        .excludePathPatterns("*.css" )
-		                        .excludePathPatterns("*.png" )
-		                        .excludePathPatterns("*.png")
-		                        .excludePathPatterns("*.jpg")
-		                        .excludePathPatterns("*.jpeg")
-		                        .excludePathPatterns("*.eot")
-		                        .excludePathPatterns("*.svg")
-		                        .excludePathPatterns("*.ttf")
-		                        .excludePathPatterns("*.woff2");
-		                        */
-	    //registry.addInterceptor(new UsuarioInterceptor());
+		                        .excludePathPatterns("/fontawesome/**" )
+								.excludePathPatterns("/admin-portal/**");
+
+
 	}
 
 }
