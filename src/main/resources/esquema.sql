@@ -57,6 +57,6 @@ CREATE TABLE `Usuarios` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 
-alter table usuarios add column password_hash text after password;
+alter table Usuarios add column password_hash text after password;
 
-alter table usuarios add column rol text DEFAULT 'USUARIO'; 
+alter table Usuarios add column rol text DEFAULT 'USUARIO';

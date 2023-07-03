@@ -18,7 +18,7 @@ import es.jcyl.eclap.colapp.ot.Cerveza;
 
 public class CervezaOad {
 	
-	private static final String TABLA = "CERVEZAS";
+	private static final String TABLA = "Cervezas";
 	
 	private static final Logger logger = LogManager.getLogger(CervezaOad.class);
 	

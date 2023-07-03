@@ -16,7 +16,7 @@ import es.jcyl.eclap.colapp.ot.Usuario;
 public class UsuarioOad {
 	
 	
-	private static final String TABLA = "USUARIOS";
+	private static final String TABLA = "Usuarios";
 	
 	private static final Logger logger = LogManager.getLogger(UsuarioOad.class);
 	

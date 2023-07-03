@@ -16,7 +16,7 @@ import es.jcyl.eclap.colapp.ot.*;
 
 public class NotaOad {
 	
-	private static final String TABLA = "NOTAS";
+	private static final String TABLA = "Notas";
 	
 	private static final Logger logger = LogManager.getLogger(NotaOad.class);
 	
