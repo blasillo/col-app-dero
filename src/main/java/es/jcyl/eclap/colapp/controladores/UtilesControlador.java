@@ -22,7 +22,7 @@ public class UtilesControlador {
     private static final Pattern IP_ADDRESS_PATTERN = Pattern.compile("\\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\\b");
 
 
-    @GetMapping( value = "/ping", produces = "application/json")
+    @GetMapping( value = "/utiles/ping", produces = "application/json")
     public ResponseEntity<RespuestaGenerica<String>> obtenerResultados(
             @RequestParam(IP_ADDRESS) String ipAddress) throws IOException {
         Supplier<Boolean> validator = () -> StringUtils.isNotBlank(ipAddress);
