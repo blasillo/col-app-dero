@@ -22,8 +22,6 @@ import es.jcyl.eclap.colapp.ot.Usuario;
 @Controller
 public class LoginControlador extends BaseControlador {
 	
-	//Logger logger = LogManager.getLogger(LoginControlador.class);
-	
 	
 	@RequestMapping(value="/login", method = RequestMethod.GET)
     public ModelAndView getLogin (Map<String, Object> modelo) {   
