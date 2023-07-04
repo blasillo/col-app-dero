@@ -13,10 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.jcyl.eclap.colapp.filtros.Sesion;
@@ -121,20 +118,12 @@ public class PrincipalControlador extends BaseControlador {
 		
 		try {
 			logger.info("GET /cervezas/xml");
-			
-			List<Cerveza> lista = CervezaLn.buscarPorNombre (""); 
-		
-
+			List<Cerveza> lista = CervezaLn.buscarPorNombre ("");
 			return new ResponseEntity<List<Cerveza>> ( lista , HttpStatus.OK);
-			
 		}
-		catch(SQLException e) {
-		
-		}		
+		catch(SQLException e) {}
 		
 		return null;
-		
-		
 	}
 	
 	
@@ -352,6 +341,24 @@ public class PrincipalControlador extends BaseControlador {
         }
 		
 	}
-	
+
+
+	@PostMapping("/mensaje")
+	public ResponseEntity<?> verMensajeViaAjax() {
+		AjaxResponseBody result = new AjaxResponseBody();
+		result.setMensaje("FLAG{C0NsEGuis73_El_4jAx}");
+
+		return ResponseEntity.ok(result);
+	}
+
+	class AjaxResponseBody {
+		String mensaje;
+
+		public String getMensaje() { return mensaje;}
+		public void setMensaje(String m) { this.mensaje = m; }
+	}
+
+
+
 
 }
