@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  oracle-db:
+    ports:
+      - '1521:1521'
+    container_name: oracle
+    image: gvenzl/oracle-free
+    environment:
+      ORACLE_PASSWORD: Sup3rS3cr3t0
+    networks:
+      - app-network
+    volumes:
+      - ./scripts:/docker-entrypoint-initdb.d
+
+networks:
+  app-network:
+    driver: bridge

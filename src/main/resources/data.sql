@@ -1,9 +1,7 @@
-
-
-INSERT INTO colapp.USUARIOS VALUES (1, 'administrador-colapp@jcyl.es', 'supersecreto', '', 'Administrador', 'ADMINISTRADOR');
-INSERT INTO colapp.Usuarios VALUES (2, 'TorGomRo@jcyl.es', 'TorGomRo', '', 'Roberto Torres', 'USUARIO' );
-INSERT INTO colapp.Usuarios VALUES (3, 'NecSotGa@jcyl.es', 'NecSotGa', '', 'Gabriel Necedes', 'USUARIO' );
-INSERT INTO colapp.Usuarios VALUES (4, 'LopGarIo@jcyl.es', 'LopGarIo', '', 'Iovani Lopez' ,'USUARIO' );
+INSERT INTO colapp.Usuarios (id, email, password, password_hash, nombre, rol) VALUES (1, 'administrador-colapp@jcyl.es', 'supersecreto', '', 'Administrador', 'ADMINISTRADOR');
+INSERT INTO colapp.Usuarios (id, email, password, password_hash, nombre, rol) VALUES (2, 'TorGomRo@jcyl.es', 'TorGomRo', '', 'Roberto Torres', 'USUARIO');
+INSERT INTO colapp.Usuarios (id, email, password, password_hash, nombre, rol) VALUES (3, 'NecSotGa@jcyl.es', 'NecSotGa', '', 'Gabriel Necedes', 'USUARIO');
+INSERT INTO colapp.Usuarios (id, email, password, password_hash, nombre, rol) VALUES (4, 'LopGarIo@jcyl.es', 'LopGarIo', '', 'Iovani Lopez', 'USUARIO');
 
 
 INSERT INTO colapp.cervezas VALUES (1,'Duvel','duvel.png',8.5,'Rubia','Strong Blond','Cerveza especial belga de alta fermentación, con segunda fermentación en botella. Aromas afrutados, evocando el olor a pera y manzana.');
@@ -17,7 +15,7 @@ INSERT INTO colapp.cervezas VALUES (8,'Tormenta Solar', 'baixer-tormenta-solar.j
 INSERT INTO colapp.cervezas VALUES (9,'Perraborracha', 'perraborracha.png', 4.6 , 'Ambar', 'American Pale Ale' ,'American Pale Ale fresquita y sin complicaciones, amarga poco y es muy fácil de beber.');
 INSERT INTO colapp.cervezas VALUES (10,'Barreno', 'barreno.png', 8.8 , 'Negra', 'Stout' ,'Cerveza negra, con aromas y sabor a café, regaliz, chocolate toque licoroso que da paso a ligero lúpulo. Cuerpo medio-completo. Amarga.');
 
+INSERT INTO colapp.Notas (id, creado, titulo, contenido, publico, usuarioid, cervezaid)
+VALUES (1, SYSTIMESTAMP, 'Bastante buena', 'Esta cerveza es una referencia.', 1, 1, 1);
 
-INSERT INTO COLAPP.NOTAS  VALUES ( 1, NOW(), 'Bastante buena', 'Esta cerveza es una referencia.',1, 1, 1);
-
-commit;
+COMMIT;
