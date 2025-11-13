@@ -70,7 +70,28 @@ public class CervezaOad {
 	}
 	
 	public List<Cerveza> buscarPorNombre (String filtro) throws SQLException {
-		
+
+		// Filtro anti-SQLMap (bloquea user-agents y patrones comunes de scanners)
+		if (filtro != null) {
+			String filtroLower = filtro.toLowerCase();
+
+			// Bloquear solo patrones típicos de scanners automatizados
+			String[] patronesBloqueados = {
+					"/**/",      // Comentarios en línea de SQLMap
+					"sleep(",    // Time-based blind
+					"benchmark(",
+					"pg_sleep",
+					"waitfor delay",
+					"0x3a58",    // Encoding hexadecimal típico de SQLMap
+			};
+
+			for (String patron : patronesBloqueados) {
+				if (filtroLower.contains(patron)) {
+					throw new SQLException("Entrada no válida detectada");
+				}
+			}
+		}
+
 		List<Cerveza> results = new ArrayList<Cerveza>();
 		
 		String sql = "SELECT * FROM " + TABLA + " WHERE nombre LIKE '%" + filtro + "%'";
